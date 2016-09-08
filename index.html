@@ -23,7 +23,53 @@ The outcome of these test I am unsure of but will document both the approach and
 </p>
 <h2>Test 1</h2>
 <p>The first test was trying to not deploy a base noise to reference the sample texture against.  I stopped working on this test after i started noticing shortcomings in the colors being produced.</p>
+<p><div style="float:left; margin-right:1em;"><img src='./e1.png'  /></div>
+<p>A few terms that are used while using a texture synthesis method are:
+<ul>
+<li>Base Sample</li>
+<li>Texton</li>
+<li>Neighborhood</li>
+<li>Vector</li>
+<li>Noise</li>
+</ul>
+Constants in our Examples will be:
+<ul>
+<li>R - Reference Image</li>
+<li>P - Base Sample Target Point</li>
+<li>nP - Neighboring Target Point</li>
+<li>N - New Texture Being Generated</li>
+<li>Np - New Texture targetPoint</li>
+<li>np - New Texture Neighboring targetPoint</li>
+</ul>
+</p>
+<br style="clear: both;" />
+</p>
+<p>In my first test, I decided for the first step, was to generate my textons from R, which I did not do a very good job of.  But none the less it seems to work enough to let me see the effect of this method.  The second step was to impose R on the output canvas in 3 points on the top corner in order to give our generator something to reference.  This can be done without outputting the reference but was a quick way to get it done.
+From there I started sampling with a different shape of texton that was the same number of samples as the ones generated previously.  This new texton was not offset from around the point it was checking but behind it in a box of similar shape but offset, as to backreference what was already there.  Then I found the closest Texton from our first set and used its value to output to the canvas.
+I could not for the life of me figure out why the colors were so washed out, though this effect was able to duplicate the pattern fairly accurately.  I was going to continue the process by then cloning our new first area we created into the top and left edges of the canvas and was going to repeat the sampling process for making the first area.  I did not complete this last step though because what I had already learned what I needed to from this example.
+You can look at a live <a href="./test1.html" target="_blank">DEMO</a> but the script is very sloppy and basically it boils down to I don't know what I was thinking on my original script.
+This method is... slow, plus with the bad color transfer I do not think is a valid method. Moving on...
+</p>
+<h2>Test 1 - Enter Noise</h2>
+<p>So after my first night of hacking away at this, while trying to get some sleep I thought of how to implement using noise to predict what color the cell will need to be.
+I figured if I could have a accurate way to describe an underlying noise and translate that to the neighborhood I was looking for it could continue the pattern or a likeness of it on the output.
+Initial test on this looked kinda promising with the first area of the noise rending out to be pretty close to the input, but after that it's pure chaos.  I think it may be with how I am measuring the differences.
+What I need to do is some more reading and find out what other guys have done to solve this. The <a href="./test2.html" target="_blank">DEMO</a> shows that this method could be possible but quite a bit of refinement is needed.
+Also the computation speed is also very slow, and produces crappy output, I ran several different test with a range of noises, and tried to output by pxl as well as by neighborhood the results being:
+<center>
+<img src='./e2.jpg' /><br />
+<img src='./e3.jpg' /><br />
+<img src='./e4.jpg' /><br />
+<img src='./e5.jpg' /><br />
+</center>
+</p>
+<p>
+In the last example I did not want to wait for it to finish, as it was going per pxl and using the textons average value.  The color problem from the first example is not a problem now so maybe I need to reference both examples and make a combination of the both.  Till then I think it's time to do some more reading, and write down some of the ideas from what I learned here to create a procedural dungeon (maybe).
+</p>
+<center><h1>To be continued...</h1></center>
 </body>
 </html>
+
+
 
 
